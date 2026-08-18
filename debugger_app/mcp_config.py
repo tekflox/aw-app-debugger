@@ -27,30 +27,36 @@ DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 15050
 
 
-def build_mcp_servers(config: dict | None = None) -> dict:
+def build_mcp_servers(config: dict | None = None, *, package_dir: str | None = None) -> dict:
     config = config or {}
     host = str(config.get("default_host") or DEFAULT_HOST)
     port = int(config.get("default_port") or DEFAULT_PORT)
-    return {
-        SERVER_NAME: {
-            "enabled": True,
-            "type": "stdio",
-            "command": "python3",
-            "args": ["-m", "debugger_app.mcp_server"],
-            "env": {
-                "PYTHONUNBUFFERED": "1",
-                "AW_DEBUGGER_DAP_HOST": host,
-                "AW_DEBUGGER_DAP_PORT": str(port),
-            },
+    entry = {
+        "enabled": True,
+        "type": "stdio",
+        "command": "python3",
+        "args": ["-m", "debugger_app.mcp_server"],
+        "env": {
+            "PYTHONUNBUFFERED": "1",
+            "AW_DEBUGGER_DAP_HOST": host,
+            "AW_DEBUGGER_DAP_PORT": str(port),
         },
     }
+    if package_dir:
+        # Without this, aw-mcp-gateway spawns `python3 -m debugger_app.mcp_server`
+        # with ITS OWN cwd (a different container), so `debugger_app` isn't
+        # importable and the subprocess dies before the handshake — found live
+        # on first install (see aw-app-weather's static mcp.json, which bakes
+        # the same absolute path in for the same reason).
+        entry["cwd"] = package_dir
+    return {SERVER_NAME: entry}
 
 
 def write_mcp_json(package_dir: str, config: dict | None = None) -> dict:
     """Regenerate ``<package_dir>/mcp.json``, skipping the write when nothing
     changed — aw-mcp-gateway reloads on mtime, and a no-op rewrite on every
     activate would be a reload loop (see aw-app-google-maps' write_mcp_json)."""
-    doc = {"mcpServers": build_mcp_servers(config)}
+    doc = {"mcpServers": build_mcp_servers(config, package_dir=package_dir)}
     body = json.dumps(doc, indent=2) + "\n"
     path = Path(package_dir) / "mcp.json"
     try:
