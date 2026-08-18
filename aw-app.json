@@ -2,8 +2,8 @@
   "manifest_version": 1,
   "id": "debugger",
   "name": "Debugger",
-  "version": "0.1.0",
-  "description": "Remote Python debugging over DAP (Debug Adapter Protocol) — breakpoints, stepping, stack/scope/variable inspection, exception interception — against debugpy sessions exposed by a DAP server. Ports agentic-workspace's aw-debugger MCP (src/mcp/debugger.py) AS-IS: same DAPClient, same 17 tools, same behavior. Preservation port, not evolved — see README for the known dead-code paths and the monolith-only integrations that quietly no-op here.",
+  "version": "0.2.0",
+  "description": "Remote Python debugging over DAP (Debug Adapter Protocol) \u2014 breakpoints, stepping, stack/scope/variable inspection, exception interception \u2014 against debugpy sessions exposed by a DAP server. Ports agentic-workspace's aw-debugger MCP (src/mcp/debugger.py) AS-IS: same DAPClient, same 17 tools, same behavior. Preservation port, not evolved \u2014 see README for the known dead-code paths and the monolith-only integrations that quietly no-op here.",
   "icon": "bug",
   "tier": "inprocess",
   "requires_ui_refresh": false,
@@ -47,7 +47,7 @@
       {
         "id": "aw-debugger",
         "path": "skills/aw-debugger/SKILL.md",
-        "description": "Remote Python debugging over DAP through this app's aw-debugger MCP server — the 17 tools, the minimal connect → breakpoint → continue → stack/variables flow, and an explicit warning that this port has never been exercised against a live debugpy session."
+        "description": "Remote Python debugging over DAP through this app's aw-debugger MCP server \u2014 the 17 tools, the minimal connect \u2192 breakpoint \u2192 continue \u2192 stack/variables flow, and an explicit warning that this port has never been exercised against a live debugpy session."
       }
     ]
   },
@@ -56,7 +56,7 @@
     "properties": {
       "default_host": {
         "type": "string",
-        "description": "Host of the DAP server this MCP talks to (agentic-workspace's dap-server, a debugpy multiplexer). Not ported here — this app is the MCP client only. Same default as the monolith's hardcoded value.",
+        "description": "Host of the DAP server this MCP talks to (agentic-workspace's dap-server, a debugpy multiplexer). Not ported here \u2014 this app is the MCP client only. Same default as the monolith's hardcoded value.",
         "default": "127.0.0.1"
       },
       "default_port": {
