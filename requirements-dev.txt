@@ -1,0 +1,1 @@
+pytest-asyncio>=0.23  # only if your tests are async (real sockets, asyncio servers)

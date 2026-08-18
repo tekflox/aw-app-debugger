@@ -1,0 +1,70 @@
+{
+  "manifest_version": 1,
+  "id": "aw-app-template",
+  "name": "App Template",
+  "version": "0.12.2",
+  "description": "TEMPLATE \u2014 the fastest way to start a new aw-workspace app. Install it and you have a working app on day one: a `hello` CLI that prints a configurable greeting, its own window in the Apps grid, and an HTTP + WebSocket backend \u2014 with tests and marketplace release already wired. Rename everything marked TEMPLATE/hello to make it yours; see README.md.",
+  "tier": "inprocess",
+  "requires_ui_refresh": true,
+  "publisher": "TekFlox",
+  "resource_estimate": {
+    "cpu": "low",
+    "memory": "low",
+    "disk": "low"
+  },
+  "runtime": {
+    "python": ">=3.11",
+    "entrypoint": "template_app.plugin:HelloAppPlugin",
+    "pip_requires": [],
+    "standalone": {
+      "module": "template_app",
+      "default_port": 9400
+    }
+  },
+  "permissions": [
+    "commands:install",
+    "fs:workspace-data",
+    "routes:register",
+    "ui:code",
+    "ui:slots:core.nav"
+  ],
+  "contributes": {
+    "system_clis": [
+      {
+        "name": "hello",
+        "installer": "scripts/install_hello.sh",
+        "verify": "hello --version"
+      }
+    ],
+    "routes": [
+      {
+        "prefix": "/api/apps/aw-app-template"
+      }
+    ],
+    "frontend": {
+      "mode": "component",
+      "bundle": "ui/dist/template.js"
+    },
+    "skills": [
+      {
+        "id": "aw-create-app",
+        "path": "skills/aw-create-app/SKILL.md",
+        "description": "How to author a decoupled aw-workspace app from this template \u2014 manifest, tiers, capabilities, contributes, backend routes (HTTP+WS), frontend code, standalone mode, window widgets, install + marketplace release."
+      }
+    ]
+  },
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "greeting": {
+        "type": "string",
+        "default": "Hello",
+        "description": "Word the installed `hello` command prints before the target name, e.g. \"Hello, world!\"."
+      }
+    },
+    "required": []
+  },
+  "config_visible": false,
+  "dependencies": {},
+  "migrations": {}
+}
