@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "id": "debugger",
   "name": "Debugger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Remote Python debugging over DAP (Debug Adapter Protocol) \u2014 breakpoints, stepping, stack/scope/variable inspection, exception interception \u2014 against debugpy sessions exposed by a DAP server. Ports agentic-workspace's aw-debugger MCP (src/mcp/debugger.py) AS-IS: same DAPClient, same 17 tools, same behavior. Preservation port, not evolved \u2014 see README for the known dead-code paths and the monolith-only integrations that quietly no-op here.",
   "icon": "bug",
   "tier": "inprocess",
