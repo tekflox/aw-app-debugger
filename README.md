@@ -79,3 +79,5 @@ python3 -m pytest tests -q
 
 No network calls, no live DAP server / debugpy session required — see
 `tests/test_mcp_server.py` for exactly what is and isn't covered.
+
+<!-- fleet migration batch 5: CI loop verification no-op -->
